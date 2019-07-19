@@ -12,7 +12,7 @@ namespace tabuleiro
 
      
 
-        public Tabuleiro(int linhas, int colunas, Peca[,] pecas)
+        public Tabuleiro(int linhas, int colunas)
         {
             Linhas = linhas;
             Colunas = colunas;
@@ -22,6 +22,12 @@ namespace tabuleiro
         public Peca Peca (int linha, int coluna)
         {
             return Pecas[linha, coluna];
+        }
+
+        public void ColocarPeca(Peca p, Posicao pos)
+        {
+            Pecas[pos.Linha, pos.Coluna] = p;
+            p.Posicao = pos;
         }
     }
 }
