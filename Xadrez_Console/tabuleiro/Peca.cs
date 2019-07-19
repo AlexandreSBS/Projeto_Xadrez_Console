@@ -6,18 +6,17 @@ namespace tabuleiro
 {
     class Peca
     {
-        public Posicao posicao { get; set; }
-        public  Cor cor { get; protected set; }
-        public int quantMovimentos { get; protected set; }
-        public Tabuleiro tab { get; protected set; }
+        public Posicao Posicao { get; set; }
+        public Cor Cor { get; protected set; }
+        public Tabuleiro Tab { get; protected set; }
+        public int QuantMovimentos { get; protected set; }
 
-
-        public Peca (Cor cor, Posicao posicao, Tabuleiro tab, int quantMovimentos)
+        public Peca(Cor cor, Posicao posicao, Tabuleiro tab, int quantMovimentos)
         {
-            this.cor = cor;
-            this.posicao = posicao;
-            this.tab = tab;
-            this.quantMovimentos = 0;
+            Cor = cor;
+            Posicao = posicao;
+            Tab = tab;
+            QuantMovimentos = 0;
         }
     }
 }
