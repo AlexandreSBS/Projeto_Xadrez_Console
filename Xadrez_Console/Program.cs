@@ -2,27 +2,32 @@
 using tabuleiro;
 using Xadrez;
 
-namespace Xadrez_Console
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace Xadrez_Console {
+    class Program {
+        static void Main(string[] args) {
             try {
-                Tabuleiro tab = new Tabuleiro(linhas: 8, colunas: 8);
+                PartidaDeXadrez partida = new PartidaDeXadrez();
 
-                tab.ColocarPeca(new Torre(Cor.Preta, tab), new Posicao(0, 0));
-                tab.ColocarPeca(new Torre(Cor.Preta, tab), new Posicao(1, 6));
-                tab.ColocarPeca(new Rei(Cor.Preta, tab), new Posicao(0, 2));
-                tab.ColocarPeca(new Rei(Cor.Branca, tab), new Posicao(7,3));
+                while (!partida.Terminada) {
+                    Console.Clear();
+                    Tela.ImprimirTab(partida.Tab);
+
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
+                    Console.Write("Destino ");
+                    Posicao destino = Tela.LerPosicaoXadrez().ToPosicao();
+
+                    partida.ExecutaMovimento(origem, destino);
+                }
 
 
-                Tela.ImprimirTab(tab);
+
+
             }
-            catch (TabuleiroException ex){
+            catch (TabuleiroException ex) {
                 Console.WriteLine("Erro: " + ex.Message);
             }
-            Console.ReadLine();
         }
     }
 }
