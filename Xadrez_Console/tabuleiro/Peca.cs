@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Xadrez;
 
-namespace tabuleiro
-{
-    abstract class Peca
-    {
+namespace tabuleiro {
+    abstract class Peca {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
         public Tabuleiro Tab { get; protected set; }
         public int QuantMovimentos { get; protected set; }
 
-        public Peca(Cor cor, Tabuleiro tab)
-        {
+        public Peca(Cor cor, Tabuleiro tab) {
             Cor = cor;
             Posicao = null;
             Tab = tab;
@@ -23,7 +20,23 @@ namespace tabuleiro
         public void IncrementarQuantMovimentos() {
             QuantMovimentos++;
         }
-        public abstract bool[,] MovimentosPossiveis(); 
-        
+
+        public bool ExisteMovimentosPossiveis() {
+            bool[,] mat = MovimentosPossiveis();
+            for (int i = 0; i < Tab.Linhas; i++) {
+                for (int j = 0; j < Tab.Colunas; j++) {
+                    if (mat[i, j]) {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+        public bool PodeMoverPara(Posicao pos) {
+            return MovimentosPossiveis()[pos.Linha, pos.Coluna];
+        }
+        public abstract bool[,] MovimentosPossiveis();
+
     }
 }
