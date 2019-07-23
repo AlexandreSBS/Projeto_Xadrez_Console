@@ -20,6 +20,9 @@ namespace tabuleiro {
         public void IncrementarQuantMovimentos() {
             QuantMovimentos++;
         }
+        public void DecrementarQuantMovimentos() {
+            QuantMovimentos--;
+        }
 
         public bool ExisteMovimentosPossiveis() {
             bool[,] mat = MovimentosPossiveis();
@@ -33,9 +36,11 @@ namespace tabuleiro {
             }
             return false;
         }
+
         public bool PodeMoverPara(Posicao pos) {
             return MovimentosPossiveis()[pos.Linha, pos.Coluna];
         }
+
         public abstract bool[,] MovimentosPossiveis();
 
     }
