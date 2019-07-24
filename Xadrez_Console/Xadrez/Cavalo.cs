@@ -1,10 +1,10 @@
 ﻿using tabuleiro;
 
-namespace xadrez {
+namespace Xadrez {
 
     class Cavalo : Peca {
 
-        public Cavalo(Tabuleiro tab, Cor cor) : base(cor, tab) {
+        public Cavalo(Tabuleiro tab, Cor cor) : base(tab, cor) {
         }
 
         public override string ToString() {

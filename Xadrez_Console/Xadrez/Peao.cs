@@ -1,10 +1,10 @@
 ﻿using tabuleiro;
 
-namespace xadrez {
+namespace Xadrez {
 
     class Peao : Peca {
 
-        public Peao(Tabuleiro tab, Cor cor) : base(cor, tab) {
+        public Peao(Tabuleiro tab, Cor cor) : base(tab, cor) {
         }
 
         public override string ToString() {
