@@ -53,14 +53,14 @@ namespace Xadrez {
                 Tab.ColocarPeca(T, destinoT);
             }
             // #JogadaEspecial - En Passant
-            if(p is Peao) {
+            if (p is Peao) {
                 if (origem.Coluna != destino.Coluna && PecaCapturada == null) {
                     Posicao posP;
-                    if(p.Cor == Cor.Branca) {
+                    if (p.Cor == Cor.Branca) {
                         posP = new Posicao(destino.Linha + 1, destino.Coluna);
                     }
                     else {
-                        posP = new Posicao(destino.Linha -1, destino.Coluna);
+                        posP = new Posicao(destino.Linha - 1, destino.Coluna);
 
                     }
                     PecaCapturada = Tab.RetiraPeca(posP);
@@ -100,8 +100,8 @@ namespace Xadrez {
                 if (origem.Coluna != destino.Coluna && pecaCapturada == VulneravelEnPassant) {
                     Peca peao = Tab.RetiraPeca(destino);
                     Posicao posP;
-                    if(p.Cor == Cor.Branca) {
-                        posP = new Posicao(3, destino.Coluna );
+                    if (p.Cor == Cor.Branca) {
+                        posP = new Posicao(3, destino.Coluna);
                     }
                     else {
                         posP = new Posicao(4, destino.Coluna);
@@ -115,10 +115,24 @@ namespace Xadrez {
         public void RealizaJogada(Posicao origem, Posicao destino) {
             Peca pecaCapturada = ExecutaMovimento(origem, destino);
 
+            Peca p = Tab.Peca(destino);
+
+            // #JogadaEspecial - Promocao
+            if (p is Peao) {
+                if ((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preta && destino.Linha == 7)) {
+                    p = Tab.RetiraPeca(destino);
+                    Pecas.Remove(p);
+                    Peca dama = new Dama(Tab, p.Cor);
+                    Tab.ColocarPeca(dama, destino);
+                    Pecas.Add(dama);
+                }
+            }
+
             if (EstaEmXeque(JogadorAtual)) {
                 DesfazMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
+
             if (EstaEmXeque(Adversaria(JogadorAtual))) {
                 Xeque = true;
             }
@@ -133,7 +147,6 @@ namespace Xadrez {
                 MudaJogador();
             }
             // #JogadaEspecial - En Passant
-            Peca p = Tab.Peca(destino);
 
             if (p is Peao && (destino.Linha == origem.Linha - 2 || destino.Linha == origem.Linha + 2)) {
                 VulneravelEnPassant = p;
